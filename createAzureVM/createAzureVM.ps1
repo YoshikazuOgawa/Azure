@@ -104,8 +104,7 @@ $input_answer = $NO
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
-  #$input_answer = Read-Host "Do you change type an azure subscription from $set_subscription_name ? 'y:yes' or 'n:no' [default: n]"
-  $input_answer = Read-Host "Do you change type an azure subscription from $set_subscription_name ? $YES(yes) or $NO(no) [default: $NO]"
+  $input_answer = Read-Host 'Do you change type an azure subscription from 無償版? $YES(yes) or $NO(no) [default: $NO]'
   switch -case ( $input_answer )
   {
     # case 0
