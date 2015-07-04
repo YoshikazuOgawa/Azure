@@ -108,7 +108,7 @@ while ( $flg -ne $SUCCESS )
     # case y
     y
     {
-      $input_my_subscription_name = Read-Host "Please enter your azure subscription."
+      $input_my_subscription_name = Read-Host "Please enter your azure subscription name."
       $set_subscription_name = $input_my_subscription_name
       Write-Output "use azure subscription: $set_subscription_name"
     }
