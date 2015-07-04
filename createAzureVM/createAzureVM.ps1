@@ -16,6 +16,7 @@ Set-Variable -name MULTI_NIC -value 1 -option constant
 
 # Add Azure account
 $flg = $FAILURE
+$input_answer = 'n'
 while ( $flg -ne $SUCCESS )
 {
   try
@@ -27,11 +28,9 @@ while ( $flg -ne $SUCCESS )
       $input_answer = Read-Host "Do you add azure account? please enter answer 'n:no' or 'y:yes' [default: n]"
       switch -case ( $input_answer )
       {
-      n { $flg = $SUCCESS }
-      no { $flg = $SUCCESS }
-      y { Add-AzureAccount }
-      yes { Add-AzureAccount }
-      default { $flg = $SUCCESS }
+        {n,no -contains $input_answer} { $flg = $SUCCESS }
+        {y,yes -contains $input_answer} { Add-AzureAccount }
+        default { $flg = $SUCCESS }
       }
     }
     else
