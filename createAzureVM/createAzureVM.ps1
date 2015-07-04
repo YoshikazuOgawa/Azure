@@ -27,7 +27,7 @@ while ( $flg -ne $SUCCESS )
     if ( $azure_account_info -ne "" )
     {
       Write-Output $azure_account_info
-      $input_answer = Read-Host "Do you add azure account? please answer $YES(yes) or $NO(no) [default: $NO]"
+      $input_answer = Read-Host "Do you add azure account? Please answer $YES(yes) or $NO(no) [default: $NO]"
       switch -case ( $input_answer )
       {
         # case 0
@@ -99,7 +99,7 @@ while ( $flg -ne $SUCCESS )
 }
 
 # Set Azure subscription and get Azure Storage Account
-$set_subscription_name = "無料評価版"
+$set_subscription_name = '無料評価版'
 $input_answer = $NO
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
@@ -110,7 +110,7 @@ while ( $flg -ne $SUCCESS )
     # case 0
     $YES
     {
-      $input_my_subscription_name = Read-Host "enter your azure subscription name"
+      $input_my_subscription_name = Read-Host "Please enter your azure subscription name"
       $set_subscription_name = $input_my_subscription_name
       Write-Output "use azure subscription: $set_subscription_name"
     }
@@ -153,7 +153,7 @@ while ( $flg -ne $SUCCESS )
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
-  $input_storage_account = Read-Host "please enter your Azure Storage Account"
+  $input_storage_account = Read-Host "Please enter your Azure Storage Account"
   try
   {
     Set-AzureSubscription -SubscriptionName $set_subscription_name -CurrentStorageAccount $input_storage_account
@@ -180,7 +180,7 @@ $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
   Write-Output "Get Azure VM Image hint: 'Get-AzureVMImage | Sort-Object OS,Label,PublishedDate | Format-Table ImageName -AutoSize'"
-  $input_vmimage_name = Read-Host "please enter Azure VM image name"
+  $input_vmimage_name = Read-Host "Please enter Azure VM image name"
   try
   {
     $image = Get-AzureVMImage -ImageName "$input_vmimage_name"
@@ -206,9 +206,9 @@ while ( $flg -ne $SUCCESS )
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
-  $input_hostname = Read-Host "please enter azure vm host name"
-  $input_instance_size = Read-Host "please enter azure vm instance size"
-  $input_availability_name = Read-Host "please enter azure availability name"
+  $input_hostname = Read-Host "Please enter azure vm host name"
+  $input_instance_size = Read-Host "Please enter azure vm instance size"
+  $input_availability_name = Read-Host "Please enter azure availability name"
   $vm = New-AzureVMConfig -Name $input_hostname -InstanceSize $input_instance_size -Image $image.ImageName -AvailabilitySetName $input_availability_name
   try
   {
@@ -235,9 +235,9 @@ $flg = $FAILURE
 $input_os_type = $LINUX
 while ( $flg -ne $SUCCESS )
 {
-  $input_os_adminuser_name = Read-Host "please enter OS administration user's name"
-  $input_os_adminuser_passwd = Read-Host "please enter OS administration user's password"
-  $input_os_type = Read-Host "please enter a OS type number '0:Linux' or '1:Windows' [default:0]"
+  $input_os_adminuser_name = Read-Host "Please enter OS administration user's name"
+  $input_os_adminuser_passwd = Read-Host "Please enter OS administration user's password"
+  $input_os_type = Read-Host "Please enter a OS type number '0:Linux' or '1:Windows' [default:0]"
   switch -case ( $input_os_type )
   {
     # case Linux
@@ -320,7 +320,7 @@ $flg = $FAILURE
 $input_nic_type = $SINGLE_NIC
 while ( $flg -ne $SUCCESS )
 {
-  $input_nic_type = Read-Host "please enter a nic type number '0:single' or '1:multi' [default:0]"
+  $input_nic_type = Read-Host "Please enter a nic type number '0:single' or '1:multi' [default:0]"
   switch -case ( $input_nic_type )
   {
     $SINGLE_NIC { $nic_type = $SINGLE_NIC }
@@ -331,8 +331,8 @@ while ( $flg -ne $SUCCESS )
   if ( $nic_type -eq $SINGLE_NIC )
   {
     Write-Output "start first network interface card configuration."
-    $input_subnet_name[0] = Read-Host "please enter Azure subnet name(for first nic network)"
-    $input_vnet_ip[0] = Read-Host "please enter Azure virtual network IP address(for firt nic ip address)"
+    $input_subnet_name[0] = Read-Host "Please enter Azure subnet name(for first nic network)"
+    $input_vnet_ip[0] = Read-Host "Please enter Azure virtual network IP address(for firt nic ip address)"
     try
     {
       Set-AzureSubnet -SubnetNames $input_subnet_name[0] -VM $vm
@@ -356,8 +356,8 @@ while ( $flg -ne $SUCCESS )
   elseif ( $nic_type -eq $MULTI_NIC )
   {
     Write-Output "start first network interface card configuration."
-    $input_subnet_name[0] = Read-Host "please enter Azure subnet name(for first nic network)"
-    $input_vnet_ip[0] = Read-Host "please enter Azure virtual network IP address(for firt nic ip address)"
+    $input_subnet_name[0] = Read-Host "Please enter Azure subnet name(for first nic network)"
+    $input_vnet_ip[0] = Read-Host "Please enter Azure virtual network IP address(for firt nic ip address)"
     try
     {
       Set-AzureSubnet -SubnetNames $input_subnet_name[0] -VM $vm
@@ -382,8 +382,8 @@ while ( $flg -ne $SUCCESS )
     Write-Output "start multi-nic configuration."
 
     # Start 2nd NIC configuration
-    $input_subnet_name[1] = Read-Host "please enter Azure subnet name(for 2nd nic network)"
-    $input_vnet_ip[1] = Read-Host "please enter Azure virtual network IP address(for 2nd nic ip address)"
+    $input_subnet_name[1] = Read-Host "Please enter Azure subnet name(for 2nd nic network)"
+    $input_vnet_ip[1] = Read-Host "Please enter Azure virtual network IP address(for 2nd nic ip address)"
     try
     {
       Add-AzureNetworkInterfaceConfig -Name NIC1 -SubnetName $input_subnet_name[1] -StaticVNetIPAddress $input_vnet_ip[1] -VM $vm
@@ -405,8 +405,8 @@ while ( $flg -ne $SUCCESS )
     }
     
     # Start 3rd NIC configuration
-    $input_subnet_name[2] = Read-Host "please enter Azure subnet name(for 3rd nic network)"
-    $input_vnet_ip[2] = Read-Host "please enter Azure virtual network IP address(for 3rd nic ip address)"
+    $input_subnet_name[2] = Read-Host "Please enter Azure subnet name(for 3rd nic network)"
+    $input_vnet_ip[2] = Read-Host "Please enter Azure virtual network IP address(for 3rd nic ip address)"
     try
     {
       Add-AzureNetworkInterfaceConfig -Name NIC1 -SubnetName $input_subnet_name[2] -StaticVNetIPAddress $input_vnet_ip[2] -VM $vm
@@ -439,8 +439,8 @@ while ( $flg -ne $SUCCESS )
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
-  $input_azure_service_name = Read-Host "please enter an Azure service name"
-  $input_azure_vnet_name = Read-Host "please enter an Azure virtual network name"
+  $input_azure_service_name = Read-Host "Please enter an Azure service name"
+  $input_azure_vnet_name = Read-Host "Please enter an Azure virtual network name"
   try
   {
     New-AzureVM -ServiceName $input_azure_service_name -VNetName $input_azure_vnet_name -VMs $vm
