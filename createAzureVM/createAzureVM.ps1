@@ -144,7 +144,7 @@ while ( $flg -ne $SUCCESS )
       }
     }
   }
-  # end swich
+  # end switch
 }
 
 # Add Azure VM network interface card
