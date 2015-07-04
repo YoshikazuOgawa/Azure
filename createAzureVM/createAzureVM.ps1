@@ -1,6 +1,9 @@
 # CONSTANT
 Set-Variable -name SUCCESS -value 0 -option constant
-Set-Variable -name FAILURE -value 1 -option constant
+Set-Variable -name LINUX -value 0 -option constant
+Set-Variable -name WINDOWS -value 1 -option constant
+Set-Variable -name SINGLE_NIC -value 0 -option constant
+Set-Variable -name MULTI_NIC -value 1 -option constant
 
 # Add Azure account
 Add-AzureAccount
@@ -47,16 +50,16 @@ while ( $flg -ne $SUCCESS )
 
 # Add Azure provisioning configuration and create Administrator's login information
 $flg = 1
-$input_os_type = "default"
+$input_os_type = $LINUX
 while ( $flg -ne $SUCCESS )
 {
   $input_os_adminuser_name = Read-Host "Please input OS administration user's name"
   $input_os_adminuser_passwd = Read-Host "Please input OS administration user's password"
-  $input_os_type = Read-Host "Please input OS type Linux or Windows[default: Linux]"
+  $input_os_type = Read-Host "Please input a OS type number '0:Linux' or '1:Windows' [default:0]"
   switch -case ( $input_os_type )
   {
-    Linux { Add-AzureProvisioningConfig -VM $vm $input_os_type -LinuxUser $input_os_adminuser_name -Password $input_os_adminuser_passwd }
-    Windows { Add-AzureProvisioningConfig -VM $vm $input_os_type -AdminUserName $input_os_adminuser_name -Password $input_os_adminuser_passwd }
+    $LINUX { Add-AzureProvisioningConfig -VM $vm $input_os_type -LinuxUser $input_os_adminuser_name -Password $input_os_adminuser_passwd }
+    $WINDOWS { Add-AzureProvisioningConfig -VM $vm $input_os_type -AdminUserName $input_os_adminuser_name -Password $input_os_adminuser_passwd }
     default { Add-AzureProvisioningConfig -VM $vm $input_os_type -LinuxUser $input_os_adminuser_name -Password $input_os_adminuser_passwd }
   }
 
@@ -74,48 +77,48 @@ while ( $flg -ne $SUCCESS )
 
 # Add Azure VM network interface card
 $flg = 1
-$input_nic_type = "default"
+$input_nic_type = $SINGLE_NIC
 while ( $flg -ne $SUCCESS )
 {
-  $input_nic_type = Read-Host "Please input nic type 'single' or 'multi' [default: single]"
+  $input_nic_type = Read-Host "Please input a nic type number '0:single' or '1:multi' [default:0]"
   switch -case ( $input_nic_type )
   {
-    single { $nic_type = 0 }
-    multi { $nic_type = 1 }
-    default { $nic_type = 0 }
+    $SINGLE_NIC { $nic_type = $SINGLE_NIC }
+    $MULTI_NIC { $nic_type = $MULTI_NIC }
+    default { $nic_type = $SINGLE_NIC }
   }
 
-  if ( $nic_type -eq 0 )
+  if ( $nic_type -eq $SINGLE_NIC )
   {
-    Write-output "start first network interface card configuration."
+    Write-Output "start first network interface card configuration."
     $input_subnet_name[0] = Read-Host "Please input Azure subnet name(for first nic network)"
     $input_vnet_ip[0] = Read-Host "Please input Azure virtual network IP address(for firt nic ip address)"
     Set-AzureSubnet -SubnetNames $input_subnet_name[0] -VM $vm
     if ( $? -eq 0 )
     {
-      Write-output "finish 1st network interface card configuration."
+      Write-Output "finish 1st network interface card configuration."
       $flg = 0
     }
     else
     { 
-      Write-output "fail 1st network interface card configuration."
+      Write-Output "fail 1st network interface card configuration."
       $flg = 1
     }
   }
-  else if ( $nic_type -eq 1 )
+  else if ( $nic_type -eq $MULTI_NIC )
   {
-    Write-output "start first network interface card configuration."
+    Write-Output "start first network interface card configuration."
     $input_subnet_name[0] = Read-Host "Please input Azure subnet name(for first nic network)"
     $input_vnet_ip[0] = Read-Host "Please input Azure virtual network IP address(for firt nic ip address)"
     Set-AzureSubnet -SubnetNames $input_subnet_name[0] -VM $vm
     if ( $? -eq 0 )
     {
-      Write-output "finish 1st network interface card configuration."
+      Write-Output "finish 1st network interface card configuration."
       $flg = 0
     }
     else
     { 
-      Write-output "fail 1st network interface card configuration."
+      Write-Output "fail 1st network interface card configuration."
       $flg = 1
     }
 
@@ -125,12 +128,12 @@ while ( $flg -ne $SUCCESS )
     Add-AzureNetworkInterfaceConfig -Name NIC1 -SubnetName $input_subnet_name[1] -StaticVNetIPAddress $input_vnet_ip[1] -VM $vm
     if ( $? -eq 0 )
     {
-      Write-output "finish 2nd network interface card configuration."
+      Write-Output "finish 2nd network interface card configuration."
       $flg = 0
     }
     else
     { 
-      Write-output "fail 2nd network interface card configuration."
+      Write-Output "fail 2nd network interface card configuration."
       $flg = 1
     }
     
@@ -139,12 +142,12 @@ while ( $flg -ne $SUCCESS )
     Add-AzureNetworkInterfaceConfig -Name NIC1 -SubnetName $input_subnet_name[2] -StaticVNetIPAddress $input_vnet_ip[2] -VM $vm
     if ( $? -eq 0 )
     {
-      Write-output "finish 3rd network interface card configuration."
+      Write-Output "finish 3rd network interface card configuration."
       $flg = 0
     }
     else
     { 
-      Write-output "fail 3rd network interface card configuration."
+      Write-Output "fail 3rd network interface card configuration."
       $flg = 1
     }
   }
@@ -155,5 +158,21 @@ while ( $flg -ne $SUCCESS )
   }
 }
 
-# Create VM
-
+# Create VM on Azure
+$flg = 1
+while ( $flg -ne $SUCCESS )
+{
+  $input_azure_service_name = Read-Host "Please input an Azure service name"
+  $input_azure_vnet_name = Read-Host "Please input an Azure virtual network name"
+  New-AzureVM -ServiceName $input_azure_service_name -VNetName $input_azure_vnet_name -VMs $vm
+  if ( $? -eq $SUCCESS )
+  {
+    Write-Output "Create VM on Azure success."
+    $flg = 0 
+  }
+  else
+  {
+    Write-Output "Create VM on Azure failure."
+    exit
+  }
+}
