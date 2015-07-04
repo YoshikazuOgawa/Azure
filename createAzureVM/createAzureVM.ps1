@@ -103,7 +103,7 @@ $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
   $input_answer = Read-Host "Do you change type an azure subscription from $set_subscription_name? 'y:yes' or 'n:no' [default: n]"
-  swich -case ( $input_answer )
+  switch -case ( $input_answer )
   {
     # case y
     y
