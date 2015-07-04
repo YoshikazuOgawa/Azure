@@ -16,8 +16,6 @@ Set-Variable -name NO -value 1 -option constant
 Set-Variable -name SUCCESS -value "True" -option constant
 Set-Variable -name FAILURE -value "False" -option constant
 
-chcp 65001
-
 # Add Azure account
 $flg = $FAILURE
 $input_answer = $NO
