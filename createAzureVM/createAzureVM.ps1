@@ -1,3 +1,11 @@
+#Requires -Version 4.0
+
+<#
+.NOTES
+Author: y-ogawa
+Created: 5/July/2015
+#>
+
 # CONSTANT
 Set-Variable -name SUCCESS -value "True" -option constant
 Set-Variable -name FAILURE -value "False" -option constant
