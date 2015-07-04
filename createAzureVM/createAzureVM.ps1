@@ -153,6 +153,7 @@ while ( $flg -ne $SUCCESS )
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
+  Write-Output "Azure Storage Account hint: Get-AzureStorageAccount->Properties->[StorageAccount, <your_storage_account>]"
   $input_storage_account = Read-Host "Please enter your Azure Storage Account"
   try
   {
