@@ -7,16 +7,18 @@ Created: 5/July/2015
 #>
 
 # CONSTANT
-Set-Variable -name SUCCESS -value "True" -option constant
-Set-Variable -name FAILURE -value "False" -option constant
 Set-Variable -name LINUX -value 0 -option constant
 Set-Variable -name WINDOWS -value 1 -option constant
 Set-Variable -name SINGLE_NIC -value 0 -option constant
 Set-Variable -name MULTI_NIC -value 1 -option constant
+Set-Variable -name YES -value 0 -option constant
+Set-Variable -name NO -value 1 -option constant
+Set-Variable -name SUCCESS -value "True" -option constant
+Set-Variable -name FAILURE -value "False" -option constant
 
 # Add Azure account
 $flg = $FAILURE
-$input_answer = "n"
+$input_answer = $NO
 while ( $flg -ne $SUCCESS )
 {
   try
@@ -25,17 +27,11 @@ while ( $flg -ne $SUCCESS )
     if ( $azure_account_info -ne "" )
     {
       Write-Output $azure_account_info
-      $input_answer = Read-Host "Do you add azure account? please answer 'n:no' or 'y:yes' [default: n]"
+      $input_answer = Read-Host "Do you add azure account? please answer $YES(yes) or $NO(no) [default: $NO]"
       switch -case ( $input_answer )
       {
-        # case n
-        n
-        {
-          $flg = $SUCCESS
-        }
-
-        # case y
-        y
+        # case 0
+        $YES
         {
           try
           {
@@ -56,6 +52,12 @@ while ( $flg -ne $SUCCESS )
             Write-Output "Add Azure account exception failure."
             $flg = $FAILURE
           }
+        }
+        
+        # case 1 
+        $NO
+        {
+          $flg = $SUCCESS
         }
 
         # case defailt
@@ -98,24 +100,24 @@ while ( $flg -ne $SUCCESS )
 
 # Set Azure subscription and get Azure Storage Account
 $set_subscription_name = "無料評価版"
-$input_answer = "n"
+$input_answer = $NO
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
   #$input_answer = Read-Host "Do you change type an azure subscription from $set_subscription_name ? 'y:yes' or 'n:no' [default: n]"
-  $input_answer = Read-Host "Do you change type an azure subscription? 'y:yes' or 'n:no' [default: n]"
+  $input_answer = Read-Host "Do you change type an azure subscription from $set_subscription_name ? $YES(yes) or $NO(no) [default: $NO]"
   switch -case ( $input_answer )
   {
-    # case y
-    y
+    # case 0
+    $YES
     {
       $input_my_subscription_name = Read-Host "Please enter your azure subscription name."
       $set_subscription_name = $input_my_subscription_name
       Write-Output "use azure subscription: $set_subscription_name"
     }
 
-    # case n
-    n
+    # case 1
+    $NO
     {
       Write-Output "use azure subscription: $set_subscription_name"
     }
