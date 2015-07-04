@@ -40,13 +40,13 @@ while ( $flg -ne $SUCCESS )
       }
       catch
       {
-        Write-Output "Add Azure Account exeption failure."
+        Write-Output "Add Azure Account exception failure."
       }
     }
   }
   catch
   {
-    Write-Output "Get Azure Account exeption failure."
+    Write-Output "Get Azure Account exception failure."
   }
 }
 
@@ -71,7 +71,7 @@ while ( $flg -ne $SUCCESS )
   }
   catch
   {
-      Write-Output "Get AzureVMImage exeption failure."
+      Write-Output "Get AzureVMImage exception failure."
       $flg = $FAILURE
   }
 }
@@ -99,7 +99,7 @@ while ( $flg -ne $SUCCESS )
   }
   catch
   {
-    Write-Output "Create new azure vm configuration exeption failure."
+    Write-Output "Create new azure vm configuration exception failure."
     $flg = $FAILURE
   }
 }
@@ -222,7 +222,7 @@ while ( $flg -ne $SUCCESS )
     }
     catch
     {
-      Write-Output "exeption fail 1st network interface card configuration."
+      Write-Output "exception fail 1st network interface card configuration."
       $flg = $FAILURE
     }
   }
@@ -247,7 +247,7 @@ while ( $flg -ne $SUCCESS )
     }
     catch
     {
-      Write-Output "exeption fail 1st network interface card configuration."
+      Write-Output "exception fail 1st network interface card configuration."
       $flg = $FAILURE
     }
 
@@ -273,7 +273,7 @@ while ( $flg -ne $SUCCESS )
     }
     catch
     {
-      Write-Output "exeption fail 2nd network interface card configuration."
+      Write-Output "exception fail 2nd network interface card configuration."
       $flg = $FAILURE
     }
     
@@ -296,7 +296,7 @@ while ( $flg -ne $SUCCESS )
     }
     catch
     {
-      Write-Output "exeption fail 3rd network interface card configuration."
+      Write-Output "exception fail 3rd network interface card configuration."
       $flg = $FAILURE
     }
   }
@@ -330,7 +330,7 @@ while ( $flg -ne $SUCCESS )
   }
   catch
   {
-      Write-Output "Create VM on Azure exeption failure."
+      Write-Output "Create VM on Azure exception failure."
       $flg = $FAILURE
   }
 }
