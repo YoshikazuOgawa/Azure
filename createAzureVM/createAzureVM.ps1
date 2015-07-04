@@ -16,7 +16,7 @@ Set-Variable -name MULTI_NIC -value 1 -option constant
 
 # Add Azure account
 $flg = $FAILURE
-$input_answer = 'n'
+$input_answer = "n"
 while ( $flg -ne $SUCCESS )
 {
   try
@@ -98,7 +98,7 @@ while ( $flg -ne $SUCCESS )
 
 # Set Azure subscription and get Azure Storage Account
 $set_subscription_name = '無料評価版'
-$input_answer = 'n'
+$input_answer = "n"
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
