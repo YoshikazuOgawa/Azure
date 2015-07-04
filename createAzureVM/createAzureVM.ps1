@@ -99,6 +99,7 @@ while ( $flg -ne $SUCCESS )
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
 {
+  Write-Output "Get Azure VM Image hint: 'Get-AzureVMImage | Sort-Object OS,Label,PublishedDate | Format-Table ImageName -AutoSize'"
   $input_vmimage_name = Read-Host "Please enter Azure VM image name"
   try
   {
