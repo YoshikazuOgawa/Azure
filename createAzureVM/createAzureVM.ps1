@@ -15,7 +15,40 @@ Set-Variable -name SINGLE_NIC -value 0 -option constant
 Set-Variable -name MULTI_NIC -value 1 -option constant
 
 # Add Azure account
-Add-AzureAccount
+$flg = $FAILURE
+while ( $flg -ne $SUCCESS )
+{
+  try
+  {
+    $azure_account_info = Get-AzureAccount
+    if ( $azure_account_info -ne "" )
+    {
+      Write-Output $azure_account_info
+      $add_azure_account = Read-Host "do you add azure account? input number '0:no' or '1:yes' [default: 0]"
+      switch -case
+      {
+      0 { $flg = $SUCCESS }
+      1 { Add-AzureAccount }
+      default { $flg = $SUCCESS }
+      }
+    }
+    else
+    {
+      try
+      {
+        Add-AzureAccount
+      }
+      catch
+      {
+        Write-Output "Add Azure Account exeption failure."
+      }
+    }
+  }
+  catch
+  {
+    Write-Output "Get Azure Account exeption failure."
+  }
+}
 
 # Get Azure VM Image
 $flg = $FAILURE
