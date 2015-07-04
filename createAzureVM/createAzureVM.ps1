@@ -95,6 +95,82 @@ while ( $flg -ne $SUCCESS )
   }
 }
 
+# Set Azure subscription and get Azure Storage Account
+$set_subscription_name = '無料評価版'
+$input_answer = 'n'
+$flg = $FAILURE
+while ( $flg -ne $SUCCESS )
+{
+  $input_answer = Read-Host "Do you change type an azure subscription from '無料評価版'? 'y:yes' or 'n:no' [default: n]"
+  swich -case ( $input_answer )
+  {
+    # case y
+    y
+    {
+      $input_my_subscription_name = Read-Host "Please enter your azure subscription."
+      $set_subscription_name = $input_my_subscription_name
+      Write-Output "use azure subscription: $set_subscription_name"
+    }
+
+    # case n
+    n
+    {
+      Write-Output "use azure subscription: $set_subscription_name"
+    }
+
+    # case default
+    {
+      Write-Output "use azure subscription: $set_subscription_name"
+    }
+  }
+
+  try
+  {
+    Set-AzureSubscription -SubscriptionName $set_subscription_name -CurrentStorageAccountName (Get-AzureStorageAccount).Label -PassThru
+    if ( $? -eq $SUCCESS )
+    {
+      Write-Output "Set Azure subscription success."
+      $flg = $SUCCESS
+    }
+    else
+    {
+      Write-Output "Set Azure subscription failure."
+      $flg = $FAILURE
+    }
+  }
+  catch
+  {
+      Write-Output "Set Azure subscription exception failure."
+      $flg = $FAILURE
+  }
+}
+
+# Set Azure Storage Account
+$flg = $FAILURE
+while ( $flg -ne $SUCCESS )
+{
+  $input_storage_account = Read-Host "Please enter your Azure Storage Account"
+  try
+  {
+    Set-AzureSubscription -SubscriptionName $set_subscription_name -CurrentStorageAccount $input_storage_account
+    if ( $? -eq $SUCCESS )
+    {
+      Write-Output "Set Azure Storage Account success."
+      $flg = $SUCCESS
+    }
+    else
+    {
+      Write-Output "Set Azure Storage Account failure."
+      $flg = $FAILURE
+    }
+  }
+  catch
+  {
+    Write-Output "Set Azure Storage Account exception failure."
+    $flg = $FAILURE
+  }
+}
+
 # Get Azure VM Image
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
