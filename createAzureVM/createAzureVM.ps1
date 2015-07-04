@@ -120,6 +120,7 @@ while ( $flg -ne $SUCCESS )
     }
 
     # case default
+    default
     {
       Write-Output "use azure subscription: $set_subscription_name"
     }
