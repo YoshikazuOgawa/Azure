@@ -16,11 +16,11 @@ while ( $flg -ne $SUCCESS )
   try
   {
     Get-AzureVMImage -ImageName "$input_vmimage_name"
-    if ( $? -eq $SUCCESS )
+    #if ( $? -eq $SUCCESS )
+    if ( $? -eq 0 )
     {
       $image = Get-AzureVMImage -ImageName "$input_vmimage_name"
       Write-Output "Get AzureVMImage success."
-      Write-Output "$image"
       $flg = 0
     }
     else
