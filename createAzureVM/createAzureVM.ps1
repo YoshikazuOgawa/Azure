@@ -31,7 +31,7 @@ while ( $flg -ne $SUCCESS )
   }
   catch
   {
-      Write-Output "Get AzureVMImage failure."
+      Write-Output "Get AzureVMImage exeption failure."
       $flg = 1
   }
 }
