@@ -105,7 +105,7 @@ while ( $flg -ne $SUCCESS )
       $flg = 1
     }
   }
-  else if ( $nic_type -eq $MULTI_NIC )
+  elseif ( $nic_type -eq $MULTI_NIC )
   {
     Write-Output "start first network interface card configuration."
     $input_subnet_name[0] = Read-Host "Please input Azure subnet name(for first nic network)"
