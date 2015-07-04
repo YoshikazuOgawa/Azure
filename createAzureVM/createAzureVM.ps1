@@ -28,29 +28,69 @@ while ( $flg -ne $SUCCESS )
       $input_answer = Read-Host "Do you add azure account? please answer 'n:no' or 'y:yes' [default: n]"
       switch -case ( $input_answer )
       {
-        #{n,no -contains $input_answer} { $flg = $SUCCESS }
-        n { $flg = $SUCCESS }
-        #{y,yes -contains $input_answer} { Add-AzureAccount }
-        y { Add-AzureAccount }
-        default { $flg = $SUCCESS }
+        # case n
+        n
+        {
+          $flg = $SUCCESS
+        }
+        # case y
+        y
+        {
+          try
+          {
+          Add-AzureAccount
+            if ( $? -eq $SUCCESS )
+            {
+              Write-Output "Add Azure account success."
+              $flg = $SUCCESS
+            }
+            else
+            {
+              Write-Output "Add Azure account failure."
+              $flg = $FAILURE
+            }
+          }
+          catch
+          {
+            Write-Output "Add Azure account exception failure."
+            $flg = $FAILURE
+          }
+        }
+
+        # case defailt
+        default
+        {
+          $flg = $SUCCESS
+        }
       }
+      # end switch
     }
     else
     {
       try
       {
         Add-AzureAccount
+        if ( $? -eq $SUCCESS )
+        {
+          Write-Output "Add Azure account success."
+          $flg = $SUCCESS
+        }
+        else
+        {
+          Write-Output "Add Azure account failure."
+          $flg = $FAILURE
+        }
       }
       catch
       {
-        Write-Output "Add Azure Account exception failure."
+        Write-Output "Add Azure account exception failure."
         $flg = $FAILURE
       }
     }
   }
   catch
   {
-    Write-Output "Get Azure Account exception failure."
+    Write-Output "Get Azure account exception failure."
     $flg = $FAILURE
   }
 }
