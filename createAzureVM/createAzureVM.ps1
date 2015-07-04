@@ -99,7 +99,7 @@ while ( $flg -ne $SUCCESS )
 }
 
 # Set Azure subscription and get Azure Storage Account
-$set_subscription_name = "無料評価版"
+#$set_subscription_name = "無料評価版"
 $input_answer = $NO
 $flg = $FAILURE
 while ( $flg -ne $SUCCESS )
