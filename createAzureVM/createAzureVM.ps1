@@ -28,8 +28,10 @@ while ( $flg -ne $SUCCESS )
       $input_answer = Read-Host "Do you add azure account? please answer 'n:no' or 'y:yes' [default: n]"
       switch -case ( $input_answer )
       {
-        {n,no -contains $input_answer} { $flg = $SUCCESS }
-        {y,yes -contains $input_answer} { Add-AzureAccount }
+        #{n,no -contains $input_answer} { $flg = $SUCCESS }
+        n { $flg = $SUCCESS }
+        #{y,yes -contains $input_answer} { Add-AzureAccount }
+        y { Add-AzureAccount }
         default { $flg = $SUCCESS }
       }
     }
@@ -180,6 +182,7 @@ while ( $flg -ne $SUCCESS )
         {
           Write-Output "Add Azure provisioning configuration failure."
           $flg = $FAILURE
+        }
       }
       catch
       {
