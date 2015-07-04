@@ -18,7 +18,7 @@ while ( $flg -ne $SUCCESS )
     Get-AzureVMImage -ImageName "$input_vmimage_name"
     if ( $? -eq $SUCCESS )
     {
-      $image = New-AzureVMImage -ImageName "$input_vmimage_name"
+      $image = Get-AzureVMImage -ImageName "$input_vmimage_name"
       Write-Output "Get AzureVMImage success."
       Write-Output "$image"
       $flg = 0
