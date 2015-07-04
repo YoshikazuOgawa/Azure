@@ -148,7 +148,6 @@ while ( $flg -ne $SUCCESS )
       $flg = $FAILURE
   }
 }
-#>
 
 # Set Azure Storage Account
 $flg = $FAILURE
