@@ -24,11 +24,13 @@ while ( $flg -ne $SUCCESS )
     if ( $azure_account_info -ne "" )
     {
       Write-Output $azure_account_info
-      $add_azure_account = Read-Host "do you add azure account? input number '0:no' or '1:yes' [default: 0]"
-      switch -case
+      $input_answer = Read-Host "Do you add azure account? please enter answer 'n:no' or 'y:yes' [default: n]"
+      switch -case ( $input_answer )
       {
-      0 { $flg = $SUCCESS }
-      1 { Add-AzureAccount }
+      n { $flg = $SUCCESS }
+      no { $flg = $SUCCESS }
+      y { Add-AzureAccount }
+      yes { Add-AzureAccount }
       default { $flg = $SUCCESS }
       }
     }
