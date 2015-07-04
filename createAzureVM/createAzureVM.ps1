@@ -15,7 +15,7 @@ while ( $flg -ne $SUCCESS )
   $input_vmimage_name = Read-Host "Please input Azure VM image name"
   try
   {
-    Get-AzureVMImage -ImageName "$input_vmimage_name" -ErrorAction stop
+    Get-AzureVMImage -ImageName "$input_vmimage_name"
     if ( $? -eq $SUCCESS )
     {
       $image = New-AzureVMImage -ImageName "$input_vmimage_name"
@@ -29,9 +29,9 @@ while ( $flg -ne $SUCCESS )
       $flg = 1
     }
   }
-  catch [System.Management.Automation.ActionPreferenceStopException]
+  catch
   {
-      Write-Output $_.exception
+      Write-Output "Get AzureVMImage failure."
       $flg = 1
   }
 }
