@@ -29,7 +29,7 @@ while ( $flg -ne $SUCCESS )
       $flg = 1
     }
   }
-  catch [System.Management.Automation.ActionPreferenceStopExeption]
+  catch [System.Management.Automation.ActionPreferenceStopException]
   {
       Write-Output $_.exception
       $flg = 1
