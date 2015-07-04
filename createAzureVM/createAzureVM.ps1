@@ -102,6 +102,7 @@ while ( $flg -ne $SUCCESS )
 $set_subscription_name = "無料評価版"
 $input_answer = $NO
 $flg = $FAILURE
+<#
 while ( $flg -ne $SUCCESS )
 {
   #$input_answer = Read-Host 'Do you change type an azure subscription from 無償版? $YES(yes) or $NO(no) [default: $NO]'
@@ -149,6 +150,7 @@ while ( $flg -ne $SUCCESS )
       $flg = $FAILURE
   }
 }
+#>
 
 # Set Azure Storage Account
 $flg = $FAILURE
