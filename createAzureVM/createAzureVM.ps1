@@ -129,7 +129,7 @@ while ( $flg -ne $SUCCESS )
   $input_hostname = Read-Host "Please enter azure vm host name"
   $input_instance_size = Read-Host "Please enter azure vm instance size"
   $input_availability_name = Read-Host "Please enter azure availability name"
-  $vm = New-AzureVMConfig -Name $input_hostname -InstanceSize $input_instance_size -Image $image.ImageName -AvailabilitySetName $input_avalability_name
+  $vm = New-AzureVMConfig -Name $input_hostname -InstanceSize $input_instance_size -Image $image.ImageName -AvailabilitySetName $input_availability_name
   try
   {
     if ( $? -eq $SUCCESS )
