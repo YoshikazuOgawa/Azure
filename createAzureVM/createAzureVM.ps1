@@ -25,7 +25,7 @@ while ( $flg -ne $SUCCESS )
     if ( $azure_account_info -ne "" )
     {
       Write-Output $azure_account_info
-      $input_answer = Read-Host "Do you add azure account? please enter answer 'n:no' or 'y:yes' [default: n]"
+      $input_answer = Read-Host "Do you add azure account? please answer 'n:no' or 'y:yes' [default: n]"
       switch -case ( $input_answer )
       {
         {n,no -contains $input_answer} { $flg = $SUCCESS }
@@ -42,12 +42,14 @@ while ( $flg -ne $SUCCESS )
       catch
       {
         Write-Output "Add Azure Account exception failure."
+        $flg = $FAILURE
       }
     }
   }
   catch
   {
     Write-Output "Get Azure Account exception failure."
+    $flg = $FAILURE
   }
 }
 
