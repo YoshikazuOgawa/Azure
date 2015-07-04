@@ -457,7 +457,7 @@ while ( $flg -ne $SUCCESS )
   }
   catch
   {
-      Write-Output "Create VM on Azure exception failure."
+      Write-Output "Create VM on Azure exception failure"
       $flg = $FAILURE
   }
 }
