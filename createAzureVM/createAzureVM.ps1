@@ -246,7 +246,7 @@ while ( $flg -ne $SUCCESS )
     {
       try
       {
-        Add-AzureProvisioningConfig -VM $vm $input_os_type -LinuxUser $input_os_adminuser_name -Password $input_os_adminuser_passwd
+        Add-AzureProvisioningConfig -VM $vm -Linux -LinuxUser $input_os_adminuser_name -Password $input_os_adminuser_passwd
         if ( $? -eq $SUCCESS )
         {
           Write-Output "Add Azure provisioning configuration success."
@@ -270,7 +270,7 @@ while ( $flg -ne $SUCCESS )
     {
       try
       {
-        Add-AzureProvisioningConfig -VM $vm $input_os_type -AdminUserName $input_os_adminuser_name -Password $input_os_adminuser_passwd
+        Add-AzureProvisioningConfig -VM $vm -Windows -AdminUserName $input_os_adminuser_name -Password $input_os_adminuser_passwd
         if ( $? -eq $SUCCESS )
         {
           Write-Output "Add Azure provisioning configuration success."
@@ -294,7 +294,7 @@ while ( $flg -ne $SUCCESS )
     {
       try
       {
-        Add-AzureProvisioningConfig -VM $vm $input_os_type -LinuxUser $input_os_adminuser_name -Password $input_os_adminuser_passwd
+        Add-AzureProvisioningConfig -VM $vm -Linux -LinuxUser $input_os_adminuser_name -Password $input_os_adminuser_passwd
         if ( $? -eq $SUCCESS )
         {
           Write-Output "Add Azure provisioning configuration success."
@@ -319,6 +319,8 @@ while ( $flg -ne $SUCCESS )
 # Add Azure VM network interface card
 $flg = $FAILURE
 $input_nic_type = $SINGLE_NIC
+$input_vnet_ip = @("", "", "")
+$input_subnet_name = @("", "", "")
 while ( $flg -ne $SUCCESS )
 {
   $input_nic_type = Read-Host "Please enter a nic type number '0:single' or '1:multi' [default:0]"
@@ -410,7 +412,7 @@ while ( $flg -ne $SUCCESS )
     $input_vnet_ip[2] = Read-Host "Please enter Azure virtual network IP address(for 3rd nic ip address)"
     try
     {
-      Add-AzureNetworkInterfaceConfig -Name NIC1 -SubnetName $input_subnet_name[2] -StaticVNetIPAddress $input_vnet_ip[2] -VM $vm
+      Add-AzureNetworkInterfaceConfig -Name NIC2 -SubnetName $input_subnet_name[2] -StaticVNetIPAddress $input_vnet_ip[2] -VM $vm
       if ( $? -eq $SUCCESS )
       {
         Write-Output "finish 3rd network interface card configuration."
