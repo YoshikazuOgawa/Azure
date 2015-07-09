@@ -207,7 +207,7 @@ while ( $flg -ne $SUCCESS )
       try
       {
         New-AzureStorageAccount -StorageAccountName "input_storage_accont" -AffinityGroup "input_affinity_group"
-	if ( $? -eq 1 )
+	if ( $? -eq $SUCCESS )
         {
 	  Write-Output "Create new Azure StorageAccount success."
 	  $flg = $SUCCESS
@@ -215,13 +215,13 @@ while ( $flg -ne $SUCCESS )
 	else
 	{
 	  Write-Output "Create new Azure StorageAccount failure."
-	  $flg = $SUCCESS
+	  $flg = $FAILURE
 	}
       }
       catch
       {
 	  Write-Output "Create new Azure StorageAccount exception failure."
-	  $flg = $SUCCESS
+	  $flg = $FAILURE
       }
     }
 
