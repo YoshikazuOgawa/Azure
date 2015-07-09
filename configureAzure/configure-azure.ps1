@@ -478,11 +478,11 @@ while ( $flg -ne $SUCCESS )
 }
 
 # Add Azure Virtual Network
-$flg = $FAILURE
-while ( $flg -ne $SUCCESS )
-{
-
-}
+#$flg = $FAILURE
+#while ( $flg -ne $SUCCESS )
+#{
+#
+#}
 
 # Add Azure VM network interface card
 $flg = $FAILURE
@@ -491,7 +491,7 @@ $input_vnet_ip = @("", "", "")
 $input_subnet_name = @("", "", "")
 while ( $flg -ne $SUCCESS )
 {
-  $input_nic_type = Read-Host "Please enter a nic type number '0:single' or '1:multi' [default:0]"
+  $input_nic_type = Read-Host "Please enter a nic type number [0] Single [1] Multi [default:0]"
   switch -case ( $input_nic_type )
   {
     $SINGLE_NIC { $nic_type = $SINGLE_NIC }
