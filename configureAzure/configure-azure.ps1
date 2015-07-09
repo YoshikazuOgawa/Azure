@@ -206,7 +206,7 @@ while ( $flg -ne $SUCCESS )
       $input_storage_account = Read-Host "Please create new your Azure StorageAccount"
       try
       {
-        New-AzureStorageAccount -StorageAccountName "input_storage_accont" -AffinityGroup "input_affinity_group"
+        New-AzureStorageAccount -StorageAccountName "$input_storage_accont" -AffinityGroup "$input_affinity_group"
 	if ( $? -eq $SUCCESS )
         {
 	  Write-Output "Create new Azure StorageAccount success."
