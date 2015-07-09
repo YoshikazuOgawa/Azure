@@ -484,6 +484,13 @@ while ( $flg -ne $SUCCESS )
   # end switch
 }
 
+# Add Azure Virtual Network
+#$flg = $FAILURE
+#while ( $flg -ne $SUCCESS )
+#{
+#
+#}
+
 # Add Azure VM network interface card
 $flg = $FAILURE
 $input_nic_type = $SINGLE_NIC
@@ -491,7 +498,7 @@ $input_vnet_ip = @("", "", "")
 $input_subnet_name = @("", "", "")
 while ( $flg -ne $SUCCESS )
 {
-  $input_nic_type = Read-Host "Please enter a nic type number '0:single' or '1:multi' [default:0]"
+  $input_nic_type = Read-Host "Please enter a nic type number [0] Single [1] Multi [default:0]"
   switch -case ( $input_nic_type )
   {
     $SINGLE_NIC { $nic_type = $SINGLE_NIC }
@@ -503,7 +510,8 @@ while ( $flg -ne $SUCCESS )
   {
     Write-Output "start first network interface card configuration."
     $input_subnet_name[0] = Read-Host "Please enter Azure subnet name(for first nic network)"
-    $input_vnet_ip[0] = Read-Host "Please enter Azure virtual network IP address(for firt nic ip address)"
+    #$input_vnet_ip[0] = Read-Host "Please enter Azure virtual network IP address(for firt nic ip address)"
+    # first nic ip is dhcp address
     try
     {
       Set-AzureSubnet -SubnetNames $input_subnet_name[0] -VM $vm
@@ -529,6 +537,7 @@ while ( $flg -ne $SUCCESS )
     Write-Output "start first network interface card configuration."
     $input_subnet_name[0] = Read-Host "Please enter Azure subnet name(for first nic network)"
     $input_vnet_ip[0] = Read-Host "Please enter Azure virtual network IP address(for firt nic ip address)"
+    # first nic ip is dhcp
     try
     {
       Set-AzureSubnet -SubnetNames $input_subnet_name[0] -VM $vm
