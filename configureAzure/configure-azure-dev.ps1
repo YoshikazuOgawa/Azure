@@ -25,6 +25,10 @@ Set-Variable -name OPENSUSE -value 3 -option constant
 Set-Variable -name UBUNTU -value 4 -option constant
 Set-Variable -name WINDOWS_SERVER -value 5 -option constant
 
+Set-Variable -name SMALL -value 0 -option constant
+Set-Variable -name LARGE -value 1 -option constant
+Set-Variable -name EXTRALARGE -value 2 -option constant
+
 # Add Azure account
 $flg = $FAILURE
 $input_answer = $NO
@@ -572,8 +576,6 @@ while ( $flg -ne $SUCCESS )
       $flg = $FAILURE
     }
 
-    if ( $input_instance_size -eq $ExtraLarge ) 
-    {
     $input_answer = Read-Host "Do you add 3rd nic? [$YES] YES [$NO] NO [default:$NO]"
       switch -case ( $input_answer )
       {
