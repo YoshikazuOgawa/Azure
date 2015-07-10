@@ -11,8 +11,6 @@ Set-Variable -name LINUX -value 0 -option constant
 Set-Variable -name WINDOWS -value 1 -option constant
 Set-Variable -name SINGLE_NIC -value 0 -option constant
 Set-Variable -name MULTI_NIC -value 1 -option constant
-Set-Variable -name DEFAULT -value 0 -option constant
-Set-Variable -name CUSTOM -value 1 -option constant
 Set-Variable -name YES -value 0 -option constant
 Set-Variable -name NO -value 1 -option constant
 Set-Variable -name SUCCESS -value "True" -option constant
