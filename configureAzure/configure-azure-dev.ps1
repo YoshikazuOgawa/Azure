@@ -1,4 +1,4 @@
-﻿#Requires -Version 4.0
+﻿#Requires -Version 3.0
 
 <#
 .NOTES
@@ -63,7 +63,7 @@ while ( $flg -ne $SUCCESS )
           catch
           {
             Write-Output "Add Azure account exception failure."
-            $flg = $FAILURE
+            exit
           }
         }
         
@@ -158,7 +158,7 @@ while ( $flg -ne $SUCCESS )
       try
       {
           New-AzureAffinityGroup -Name $input_ag_name -Location $input_ag_location
-	if ( $? -eq 0 )
+	if ( $? -eq $SUCCESS )
 	{
 	  Write-Output "Create new Azure AffinityGroup success."
 	  $flg = $SUCCESS
@@ -579,36 +579,38 @@ while ( $flg -ne $SUCCESS )
     $input_answer = Read-Host "Do you add 3rd nic? [$YES] YES [$NO] NO [default:$NO]"
       switch -case ( $input_answer )
       {
-      # case YES
-      $YES
-      # Start 3rd NIC configuration
-      $input_subnet_name[2] = Read-Host "Please enter Azure subnet name(for 3rd nic network)"
-      $input_vnet_ip[2] = Read-Host "Please enter Azure virtual network IP address(for 3rd nic ip address)"
-      try
-      {
-        Add-AzureNetworkInterfaceConfig -Name NIC2 -SubnetName $input_subnet_name[2] -StaticVNetIPAddress $input_vnet_ip[2] -VM $vm
-        if ( $? -eq $SUCCESS )
+        # case YES
+        $YES
         {
-          Write-Output "finish 3rd network interface card configuration."
-          $flg = $SUCCESS
+        # Start 3rd NIC configuration
+        $input_subnet_name[2] = Read-Host "Please enter Azure subnet name(for 3rd nic network)"
+        $input_vnet_ip[2] = Read-Host "Please enter Azure virtual network IP address(for 3rd nic ip address)"
+          try
+          {
+            Add-AzureNetworkInterfaceConfig -Name NIC2 -SubnetName $input_subnet_name[2] -StaticVNetIPAddress $input_vnet_ip[2] -VM $vm
+            if ( $? -eq $SUCCESS )
+            {
+              Write-Output "finish 3rd network interface card configuration."
+             $flg = $SUCCESS
+            }
+            else
+            {  
+            Write-Output "fail 3rd network interface card configuration."
+            $flg = $FAILURE
+            }
+	  }
+          catch
+          {
+            Write-Output "exception fail 3rd network interface card configuration."
+            $flg = $FAILURE
+          }
         }
-        else
-        {  
-        Write-Output "fail 3rd network interface card configuration."
-        $flg = $FAILURE
-        }
-      }
-      catch
+      # end elseif
+      else
       {
-        Write-Output "exception fail 3rd network interface card configuration."
+        Write-Output "NIC configuration error."
         $flg = $FAILURE
       }
-    }
-    # end elseif
-    else
-    {
-      Write-Output "NIC configuration error."
-      $flg = $FAILURE
     }
   }
 }
