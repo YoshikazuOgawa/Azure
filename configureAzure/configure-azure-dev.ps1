@@ -123,7 +123,7 @@ switch -case ( $input_answer )
   # case 0
   $YES
   {
-    $input_my_subscription_name = Read-Host "Please enter your Azure subscription name"
+    $input_my_subscription_name = '従量課金'
     $set_subscription_name = $input_my_subscription_name
     Write-Output "use Azure subscription: $set_subscription_name"
   }
@@ -206,9 +206,10 @@ while ( $flg -ne $SUCCESS )
     $YES
     {
       $input_storage_account = Read-Host "Please create new your Azure StorageAccount"
+      $input_affinity_group = Read-Host "Please enter your AffinityGroup"
       try
       {
-        New-AzureStorageAccount -StorageAccountName "$input_storage_accont" -AffinityGroup "$input_affinity_group"
+        New-AzureStorageAccount -StorageAccountName "$input_storage_account" -AffinityGroup "$input_affinity_group"
 	if ( $? -eq $SUCCESS )
         {
 	  Write-Output "Create new Azure StorageAccount success."
