@@ -1,15 +1,22 @@
 #Requires -Version 3.0
 Set-Variable -name VNETCONF -value "vnetconfig.xml" -option constant
 
-$input_vnet_name = Read-Host "Please enter create Virtual Network name:"
-$input_affinity_group = Read-Host "Please enter your AffinityGroup"
-$input_address_prefix = Read-Host "Please enter address prefix [example:10.0.0.0/8]:"
-$input_subnet_num = Read-Host "Please enter create subnet number:"
+$input_subnet_name = @("")
+$input_subnet_prefix = @("")
 
-for ( $i = 0; $i < $input_subnet_num; $i++ )
+$input_vnet_name = Read-Host "Please enter create Virtual Network name"
+$input_affinity_group = Read-Host "Please enter your AffinityGroup"
+$input_address_prefix = Read-Host "Please enter address prefix [example:10.0.0.0/8]"
+$input_subnet_num = Read-Host "Please enter create subnet number"
+
+$input_subnet_name += $input_subnet_num
+$input_subnet_prefix += $input_subnet_num
+
+for ( $i = 0; $i -lt $input_subnet_num; $i++ )
 {
-  $input_subnet_name[$i] = Read-Host "Please enter Subnet number $i name:"
-  $input_subnet_prefix[$i] = Read-Host "Please enter Subnet number $i prefix:"
+  $subnet_num = $i + 1
+  $input_subnet_name[$i] = Read-Host "Please enter Subnet name (number $subnet_num)"
+  $input_subnet_prefix[$i] = Read-Host "Please enter Subnet prefix (number $subnet_num)"
 }
 
 echo '<?xml version="1.0" encoding="utf-8"?>' >> $VNETCONF
@@ -22,7 +29,7 @@ echo '          <AddressSpace>' >> $VNETCONF
 echo "            <AddressPrefix>"$input_address_prefix"</AddressPrefix>" >> $VNETCONF
 echo '          </AddressSpace>' >> $VNETCONF
 
-for ( $i = 0; $i < $input_subnet_num; $i++ )
+for ( $i = 0; $i -lt $input_subnet_num; $i++ )
 {
 echo '          <Subnets>' >> $VNETCONF
 echo "            <Subnet name="$input_subnet_name[$i]">" >> $VNETCONF
